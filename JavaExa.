@@ -1,0 +1,132 @@
+package com.company;
+
+
+import java.util.Arrays;
+
+public class DynamicdArray {
+
+    int[] array;
+    int counter = 0;
+
+    public DynamicdArray() {
+        array = new int[4];
+        counter = 0;
+    }
+
+    public void get(int index){
+        int value = 0;
+        for (int i = 0; i < array.length; i++) {
+           value = array[index];
+        }
+        System.out.println("get value/index => " + value);
+    }
+
+    public void add(int value) {
+        if (array.length == counter) {
+            createNewBiggerArray();
+        }
+        array[counter++] = value;
+    }
+
+    public void remove(int index){
+        int[] newRemovedArray = new int[array.length -1];
+        for (int i = 0; i < array.length; i++) {
+            newRemovedArray[i] = array[i];
+            newRemovedArray = array;
+        }
+        if (newRemovedArray[index] != 0 && newRemovedArray[index] <= array[0]){
+            newRemovedArray[index] = array[index+1];
+            newRemovedArray[index +1] = array[index+2];
+            newRemovedArray[index +2] = array[index+3];
+            newRemovedArray[index +3] = array[index+4];
+            newRemovedArray[index +4] = array[index+5];
+        }
+
+        System.out.println("newRemovedArray remove => " + Arrays.toString(array));
+    }
+
+    public void indexOf(int number){
+        int myCounterForTry = 0;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number){
+                myCounterForTry = i;
+                break;
+            }else{
+//                throw new ArrayIndexOutOfBoundsException();
+            }
+        }
+        System.out.println("indexOf => " + myCounterForTry);
+    }
+
+    public void clear(int array[]){
+        int[] newArray = new int[0];
+        for (int i = 0; i < array.length; ++i) {
+            array = newArray;
+        }
+        System.out.println("Clear arr => " + Arrays.toString(array));
+    }
+
+    public boolean contains(int number) {
+        boolean b = false;
+        for (int i = 0; i < array.length; i++) {
+            if (array[i] == number) {
+                b = true;
+                break;
+            }
+        }
+        System.out.println("contains => " + b);
+        return b;
+    }
+
+    public void add(int index, int value) {
+        int[] newArray = new int[array.length +1];
+        for (int i = 0; i < array.length; i++) {
+            newArray[i] = array[i];
+        }
+        if (newArray[index] != 0){
+            newArray[index] = value;
+            newArray[index +1] = array[index];
+            newArray[index +2] = array[index+1];
+            newArray[index +3] = array[index+2];
+            newArray[index +4] = array[index+3];
+            newArray[index +5] = array[index+4];
+        }else{
+            newArray[index] = value;
+        }
+        System.out.println("newArray add index/value => " + Arrays.toString(newArray));
+    }
+
+
+    public void set(int possition, int number) {
+        array[possition] = number;
+        System.out.println("set array => " + Arrays.toString(array));
+    }
+
+    public void createNewBiggerArray(){
+        int[] biggerArray = new int[array.length * 2];
+        for (int i = 0; i < array.length; i++) {
+            biggerArray[i] = array[i];
+        }
+        array = biggerArray;
+    }
+
+    public void pritArray(int[] array){
+        System.out.println("Array after add => " + Arrays.toString(this.array));
+        System.out.println("Counter => " + counter);
+
+    }
+
+}
+
+
+*****************************************************************************************
+Array after add => [20, 7, 5, -5, 13, 0, 0, 0]
+Counter => 5
+set array => [20, 300, 5, -5, 13, 0, 0, 0]
+newArray add index/value => [20, 300, 5, -200, -5, 13, 0, 0, 0]
+Clear arr => []
+contains => true
+indexOf => 4
+get value/index => 13
+newRemovedArray remove => [300, 5, -5, 13, 0, 0, 0, 0]
+*****************************************************************************************
